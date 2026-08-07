@@ -11,6 +11,12 @@
 
 *An end-to-end multi-architecture Artificial Intelligence system for 14-day early warning of agricultural drought & water stress, biophysical crop health tracking, and end-of-season harvest yield forecasting ($kg/\text{dönüm}$) using Copernicus Sentinel-2 L2A multispectral satellite imagery and ECMWF ERA5-Land climate time series.*
 
+<br>
+
+<p align="center">
+  <img src="reports/drought_model_comparison.png" alt="Yapay Zeka Model Başarım Karşılaştırması" width="88%"/>
+</p>
+
 </div>
 
 ---
@@ -20,6 +26,35 @@
 Tarım sektöründe kuraklık ve su stresi yapraklarda sararma veya kuruma gibi dışa vuran tarlada gözle görülür belirtiler vermeden haftalar önce kök ve hücresel düzeyde başlar. Gözle görüldüğünde ise genellikle çok geç kalınmış olur ve telafisi imkansız rekolte kayıpları yaşanır.
 
 **Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi**, ücretsiz **Copernicus Sentinel-2** uydusundan 5 günde bir çekilen yakın kızılötesi (**NIR - B8**) ve kısa dalga kızılötesi (**SWIR - B11**) spektral bantları ile **ECMWF ERA5-Land** uydusuna ait 2-katmanlı kök bölgesi toprak nemi zaman serilerini işler.
+
+---
+
+<details open>
+<summary><h3>🖼️ Görsel Ekran Görüntüleri & Raporlar (Tıklayıp Genişletin)</h3></summary>
+
+<br>
+
+#### 📊 1. Modeller Arası Başarım Karşılaştırma Grafiği
+<p align="center">
+  <img src="reports/drought_model_comparison.png" alt="Model Comparison Benchmark" width="90%"/>
+</p>
+
+#### 📉 2. 14-Günlük Kuraklık Stresi Karmaşıklık Matrisi (Confusion Matrix)
+<p align="center">
+  <img src="reports/drought_confusion_matrix.png" alt="Confusion Matrix" width="70%"/>
+</p>
+
+#### 🌾 3. Sezon Sonu Rekolte Tahmin Modeli (Gerçek vs Tahmin Değerleri - R² = 0.944)
+<p align="center">
+  <img src="reports/yield_actual_vs_predicted.png" alt="Yield Actual vs Predicted" width="70%"/>
+</p>
+
+#### 🧠 4. Açıklanabilir Yapay Zeka (SHAP XAI) Karar Nedenleri
+<p align="center">
+  <img src="reports/shap_yield_explanation.png" alt="SHAP Explainable AI" width="85%"/>
+</p>
+
+</details>
 
 ---
 
