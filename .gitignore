@@ -1,0 +1,11 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch & Model binaries (if large)
+# models/*.pth
+
+# OS generated
+.DS_Store
+Thumbs.db

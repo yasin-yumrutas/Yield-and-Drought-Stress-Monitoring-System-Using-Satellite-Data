@@ -1,0 +1,30 @@
+{
+  "latest_step": 24,
+  "current_ndvi": 0.2311,
+  "current_ndwi": 0.022,
+  "predicted_14d_stress_status": "Şiddetli Kuraklık Stresi",
+  "stress_level_code": 2,
+  "map_color_code": "#F44336",
+  "stress_probabilities": {
+    "normal_prob": 0.007525401655584574,
+    "mild_stress_prob": 0.15669071674346924,
+    "severe_drought_prob": 0.835783839225769
+  },
+  "forecasted_yield_kg_per_da": 507.2,
+  "location": "Gaziantep / Şehitkamil Tarım Bölgesi",
+  "coordinates": {
+    "latitude": 37.0667,
+    "longitude": 37.3833
+  },
+  "date_range": [
+    "2026-03-01",
+    "2026-07-01"
+  ],
+  "total_observation_steps": 25,
+  "real_weather_summary": {
+    "avg_season_temp_c": 16.1,
+    "total_season_precip_mm": 361.6,
+    "min_soil_moisture_%": 13.6,
+    "avg_soil_moisture_%": 23.4
+  }
+}

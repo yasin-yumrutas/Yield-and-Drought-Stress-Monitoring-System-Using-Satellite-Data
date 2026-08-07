@@ -1,0 +1,47 @@
+[
+  {
+    "latest_step": 19,
+    "current_ndvi": 0.05,
+    "current_ndwi": -0.1530047241018398,
+    "predicted_14d_stress_status": "Şiddetli Kuraklık Stresi",
+    "stress_level_code": 2,
+    "map_color_code": "#F44336",
+    "stress_probabilities": {
+      "normal_prob": 0.00583115266636014,
+      "mild_stress_prob": 0.31986355781555176,
+      "severe_drought_prob": 0.6743053197860718
+    },
+    "forecasted_yield_kg_per_da": 593.3,
+    "field_id": 1
+  },
+  {
+    "latest_step": 19,
+    "current_ndvi": 0.05,
+    "current_ndwi": -0.1604073050982845,
+    "predicted_14d_stress_status": "Şiddetli Kuraklık Stresi",
+    "stress_level_code": 2,
+    "map_color_code": "#F44336",
+    "stress_probabilities": {
+      "normal_prob": 0.0013183607952669263,
+      "mild_stress_prob": 0.004287673160433769,
+      "severe_drought_prob": 0.9943939447402954
+    },
+    "forecasted_yield_kg_per_da": 469.1,
+    "field_id": 5
+  },
+  {
+    "latest_step": 19,
+    "current_ndvi": 0.05,
+    "current_ndwi": -0.1074935152815867,
+    "predicted_14d_stress_status": "Orta Su Stresi (Erken Uyarı)",
+    "stress_level_code": 1,
+    "map_color_code": "#FF9800",
+    "stress_probabilities": {
+      "normal_prob": 0.012088908813893795,
+      "mild_stress_prob": 0.6416383385658264,
+      "severe_drought_prob": 0.34627270698547363
+    },
+    "forecasted_yield_kg_per_da": 477.9,
+    "field_id": 12
+  }
+]

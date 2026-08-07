@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi (Gaziantep Canlı Harita)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet.js Interactive Map CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">AGY</div>
+            <div class="title-group">
+                <h1>Uydu Verileri ile Rekolte & Kuraklık Stresi Takip Sistemi</h1>
+                <p>Gaziantep Canlı Lokasyon Seçimli Harita (ERA5 Meteoroloji & Sentinel-2 Yapay Zekası)</p>
+            </div>
+        </div>
+        <div class="badge-tubitak">TÜBİTAK 2209-A / 2242 Ar-Ge Projesi</div>
+    </header>
+
+    <main>
+        <div class="sidebar">
+            <div class="card">
+                <div class="card-header">
+                    <span>Gaziantep Canlı Harita Seçimi</span>
+                    <small style="color: var(--text-secondary)">Tıklayıp Bölge Seçin</small>
+                </div>
+                <!-- Interactive Leaflet Map Container -->
+                <div id="gaziantepMap" style="height: 280px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color);"></div>
+                <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem; text-align: center;">
+                    💡 Harita üzerindeki tarlalara tıklayabilir veya haritada herhangi bir yere tıklayarak canlı iklim ve YZ analizi alabilirsiniz.
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>YZ Model Performansı</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Ensemble Stres F1</div>
+                        <div class="stat-value" style="color: var(--accent-green)">%95.0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Rekolte R² Başarısı</div>
+                        <div class="stat-value" style="color: var(--accent-blue)">0.944</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Erken Uyarı Süresi</div>
+                        <div class="stat-value" style="color: var(--accent-orange)">14 Gün</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Canlı API Durumu</div>
+                        <div class="stat-value" style="color: var(--accent-green)">Aktif</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="prediction-banner" id="predictionBanner">
+                <div class="prediction-info">
+                    <h3 id="fieldTitle">Gaziantep / Araban Ovası - Yapay Zeka Tahmini</h3>
+                    <p id="fieldStatus">14-Günlük Tahmin: <strong id="statusText">Şiddetli Kuraklık Stresi</strong></p>
+                    <small id="coordText" style="color: var(--text-secondary)">Koordinat: 37.4300, 37.6800 | Toplam Yağış: 361.6 mm</small>
+                </div>
+                <div class="yield-pill" id="yieldText">
+                    Tahmini Rekolte: 507.2 kg/dönüm
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Gaziantep Seçili Bölge Canlı İklim & Sentinel-2 Zaman Serisi (120 Gün)</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="tsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi - Gaziantep Harita Seçimli Canlı YZ Paneli</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+:root {
+    --bg-primary: #0a0f1d;
+    --bg-secondary: #131b2e;
+    --bg-card: #1b263b;
+    --accent-green: #10b981;
+    --accent-orange: #f59e0b;
+    --accent-red: #ef4444;
+    --accent-blue: #3b82f6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #2e3b52;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.title-group h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.title-group p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.badge-tubitak {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+main {
+    flex: 1;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1.5rem;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.card-header {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.stat-item {
+    background: var(--bg-secondary);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.field-box {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.field-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.field-box.active {
+    border-color: #ffffff;
+}
+
+.status-healthy { background: rgba(16, 185, 129, 0.25); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.5); }
+.status-mild { background: rgba(245, 158, 11, 0.25); color: var(--accent-orange); border-color: rgba(245, 158, 11, 0.5); }
+.status-severe { background: rgba(239, 68, 68, 0.25); color: var(--accent-red); border-color: rgba(239, 68, 68, 0.5); }
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.chart-container {
+    height: 320px;
+    position: relative;
+}
+
+.prediction-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-secondary);
+    padding: 1.25rem;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-green);
+}
+
+.prediction-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.prediction-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.yield-pill {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-green);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+footer {
+    padding: 1rem 2rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
