@@ -11,14 +11,6 @@
 
 *An end-to-end multi-architecture Artificial Intelligence system for 14-day early warning of agricultural drought & water stress, biophysical crop health tracking, and end-of-season harvest yield forecasting ($kg/\text{dönüm}$) using Copernicus Sentinel-2 L2A multispectral satellite imagery and ECMWF ERA5-Land climate time series.*
 
-[📌 Proje Hakkında](#-proje-hakkında) •
-[✨ Öne Çıkan Özellikler](#-öne-çıkan-özellikler) •
-[🏗️ Sistem Mimarisi](#%EF%B8%8F-sistem-mimarisi) •
-[📊 Model Başarım Tablosu](#-model-başarım-tablosu) •
-[📍 Gaziantep Gerçek Saha Testi](#-gaziantep-gerçek-saha-testi) •
-[🚀 Hızlı Kurulum](#-hızlı-kurulum) •
-[🌐 REST API](#-rest-api-dokümantasyonu)
-
 </div>
 
 ---
@@ -29,13 +21,10 @@ Tarım sektöründe kuraklık ve su stresi yapraklarda sararma veya kuruma gibi 
 
 **Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi**, ücretsiz **Copernicus Sentinel-2** uydusundan 5 günde bir çekilen yakın kızılötesi (**NIR - B8**) ve kısa dalga kızılötesi (**SWIR - B11**) spektral bantları ile **ECMWF ERA5-Land** uydusuna ait 2-katmanlı kök bölgesi toprak nemi zaman serilerini işler.
 
-Geliştirilen **PyTorch Temporal Transformer**, **Agronomik PINN (Physics-Informed Loss)** ve **Hybrid Stacking Ensemble Meta-Learner** yapay zeka modelleri sayesinde:
-1. Tarladaki su stresini gözle görülür hale gelmeden **14 gün önce** (%95.0 şiddetli kuraklık yakalama hassasiyetiyle) tespit eder ve harita üzerinde uyarı verir.
-2. Sezon sonu buğday/ürün rekoltesini ($kg/\text{dönüm}$) **$R^2 = 0.944$ doğrusal uyum ve sadece $15.9 \text{ kg/da}$ sapma** ile tahmin eder.
-
 ---
 
-## ✨ Öne Çıkan Özellikler
+<details open>
+<summary><h3>✨ Öne Çıkan Özellikler & Veri Kaynakları (Tıklayıp Genişletin)</h3></summary>
 
 - **🛰️ Çok Spektral Uydu İndeksleme (Sentinel-2 L2A):**
   - **NDVI (Bitki Sağlığı & Biyokütle İndeksi):** $\frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}$
@@ -49,14 +38,17 @@ Geliştirilen **PyTorch Temporal Transformer**, **Agronomik PINN (Physics-Inform
   - Multi-Task Deep Neural Network (Shared Transformer + Focal Loss)
   - Optuna Bayesian Hiperparametre Optimizasyonlu XGBoost
   - Hybrid Stacking Ensemble Meta-Learner (Logistic Regression)
-- **Açıklanabilir Yapay Zeka (Explainable AI - SHAP XAI):**
+- **🧠 Açıklanabilir Yapay Zeka (Explainable AI - SHAP XAI):**
   - Yapay zekanın "kara kutu" olmasını engeller; tahminlerin arkasındaki matematiksel nedenleri SHAP grafikleriyle raporlar.
 - **🗺️ Gaziantep İnteraktif Canlı Harita Paneli (Leaflet.js):**
   - Harita üzerinden Gaziantep (Araban, Şehitkamil, Şahinbey, İslahiye vb.) ilçelerindeki tarlalara veya herhangi bir enlem/boylam noktasına tıklayarak canlı iklim ve yapay zeka tahmini üretme.
 
+</details>
+
 ---
 
-## 🏗️ Sistem Mimarisi
+<details>
+<summary><h3>🏗️ Sistem Mimarisi & Veri Akış Diyagramı (Tıklayıp Genişletin)</h3></summary>
 
 ```
  ┌──────────────────────────────────────┐     ┌──────────────────────────────────────┐
@@ -92,9 +84,12 @@ Geliştirilen **PyTorch Temporal Transformer**, **Agronomik PINN (Physics-Inform
  └───────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+</details>
+
 ---
 
-## 📊 Model Başarım Tablosu
+<details open>
+<summary><h3>📊 Comprehensive AI Model Performance & Benchmark Table (Tıklayıp Genişletin)</h3></summary>
 
 Aşağıdaki metrikler 1.200 tarladan elde edilen validation veri seti ve bağımsız saha testleri üzerinden hesaplanmıştır:
 
@@ -107,9 +102,12 @@ Aşağıdaki metrikler 1.200 tarladan elde edilen validation veri seti ve bağı
 | ⚡ **PyTorch Transformer** | Multi-Head Self-Attention Derin Ağ | **0.720** | **0.91 (91.0%)** | **80.0%** |
 | 🌾 **XGBoost Yield Regressor** | Sezon Sonu Rekolte Tahmini ($kg/da$) | - | - | **$R^2 = 0.944$ (MAE: 15.9 kg/da)** |
 
+</details>
+
 ---
 
-## 📍 Gaziantep Gerçek Saha Testi
+<details>
+<summary><h3>📍 Gaziantep Gerçek Saha Testi Sonuçları (Tıklayıp Genişletin)</h3></summary>
 
 Gaziantep Şehitkamil / Araban Ovası tarım koordinatları (`37.0667, 37.3833`) için **1 Mart 2026 – 1 Temmuz 2026** tarih aralığındaki 123 günlük gerçek sezon iklim verileri çekilmiş ve test edilmiştir:
 
@@ -118,9 +116,12 @@ Gaziantep Şehitkamil / Araban Ovası tarım koordinatları (`37.0667, 37.3833`)
 - 🚨 **14-Günlük Kuraklık Risk Tahmini:** **%83.6 Olasılıkla Şiddetli Kuraklık Stresi Uyarısı** (Renk Kodu: `#F44336` Kırmızı).
 - 🌾 **Tahmini Sezon Rekoltesi:** **507.2 kg / dönüm**.
 
+</details>
+
 ---
 
-## 📁 Proje Klasör Yapısı
+<details>
+<summary><h3>📁 Proje Klasör Yapısı & Modüller (Tıklayıp Genişletin)</h3></summary>
 
 ```text
 Yield-and-Drought-Stress-Monitoring-System-Using-Satellite-Data/
@@ -148,9 +149,12 @@ Yield-and-Drought-Stress-Monitoring-System-Using-Satellite-Data/
 └── reports/                   # Üretilen Grafik ve Metrik Raporları (*.png, *.json)
 ```
 
+</details>
+
 ---
 
-## 🚀 Hızlı Kurulum
+<details>
+<summary><h3>🚀 Hızlı Kurulum & Çalıştırma Rehberi (Tıklayıp Genişletin)</h3></summary>
 
 ### 1. Repoyu Klonlayın
 ```bash
@@ -178,9 +182,12 @@ python src/data/gaziantep_real_test.py
 python api_server.py
 ```
 
+</details>
+
 ---
 
-## 🌐 REST API Dokümantasyonu
+<details>
+<summary><h3>🌐 FastAPI REST API Dokümantasyonu & Endpoint Örnekleri (Tıklayıp Genişletin)</h3></summary>
 
 API sunucusu başlatıldıktan sonra `http://localhost:8000/docs` adresinden Swagger UI dokümantasyonuna erişilebilir.
 
@@ -211,6 +218,8 @@ API sunucusu başlatıldıktan sonra `http://localhost:8000/docs` adresinden Swa
   "forecasted_yield_kg_per_da": 507.2
 }
 ```
+
+</details>
 
 ---
 
