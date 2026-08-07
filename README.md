@@ -61,9 +61,9 @@ Tarım sektöründe kuraklık ve su stresi yapraklarda sararma veya kuruma gibi 
 <details open>
 <summary><h3>✨ Öne Çıkan Özellikler & Veri Kaynakları (Tıklayıp Genişletin)</h3></summary>
 
-- **🛰️ Çok Spektral Uydu İndeksleme (Sentinel-2 L2A):**
-  - **NDVI (Bitki Sağlığı & Biyokütle İndeksi):** $\frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}$
-  - **NDWI (Yaprak ve Kanopi Su Stresi İndeksi):** $\frac{\text{NIR} - \text{SWIR}}{\text{NIR} + \text{SWIR}}$
+- **🛰️ Çok Spektral & Radar Uydu Veri Füzyonu (Sentinel-2 & Sentinel-1 SAR):**
+  - **Sentinel-2 L2A (Optik / Kızılötesi):** NDVI (Bitki Sağlığı) & NDWI (Su Stresi İndeksi).
+  - **Sentinel-1 SAR C-Band Radar (Bulut Delici Mikrodalga):** Bulutlu ve kapalı havalarda dahi $\sigma^0_{VV}$, $\sigma^0_{VH}$ mikrodalga gerisaçılımı ile kesintisiz toprak nemi ve RVI (Radar Vegetation Index) takibi.
 - **📡 Anlık Gerçek İklim & Toprak Nemi API (ERA5 & Open-Meteo):**
   - Seçilen herhangi bir koordinat için anlık günlük Ortalama/Maksimum Sıcaklık ($^\circ C$), Toplam Yağış ($mm$), $0-7cm$ yüzey ve $7-28cm$ kök bölgesi toprak nemi ($m^3/m^3$).
 - **🧠 6 Farklı Yapay Zeka Mimarisi & Hibrit Stacking Ensemble:**

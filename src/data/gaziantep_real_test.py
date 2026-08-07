@@ -8,6 +8,7 @@ import requests
 from datetime import datetime
 
 from src.data.openmeteo_fetcher import OpenMeteoAgriFetcher
+from src.data.sentinel1_sar_fetcher import Sentinel1SARFetcher
 from src.inference import CropHealthPredictor
 from src.models.ensemble_model import DroughtEnsembleMetaLearner
 
