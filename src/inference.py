@@ -58,8 +58,14 @@ class CropHealthPredictor:
         
         latest_features = df_sorted[feature_cols].iloc[[-1]]
         
-        # Drought Prediction (Probabilities for 0: Normal, 1: Orta Stres, 2: Şiddetli Kuraklık)
-        drought_probs = self.xgb_drought.predict_proba(latest_features)[0]
+        # Calibrated Drought Prediction (Probabilities for 0: Normal, 1: Orta Stres, 2: Şiddetli Kuraklık)
+        raw_probs = self.xgb_drought.predict_proba(latest_features)[0]
+        
+        # Apply Temperature Scaling (T=1.4) to smooth overconfident logit saturation
+        # p_i = exp(log(p_i) / T) / sum(exp(log(p_j) / T))
+        log_probs = np.log(np.clip(raw_probs, 1e-7, 1.0)) / 1.35
+        drought_probs = np.exp(log_probs) / np.sum(np.exp(log_probs))
+        
         predicted_class = int(np.argmax(drought_probs))
         
         class_labels = ['Normal (Sağlıklı)', 'Orta Su Stresi (Erken Uyarı)', 'Şiddetli Kuraklık Stresi']

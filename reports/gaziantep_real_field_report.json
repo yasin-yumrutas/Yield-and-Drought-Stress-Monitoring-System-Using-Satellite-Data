@@ -6,9 +6,9 @@
   "stress_level_code": 2,
   "map_color_code": "#F44336",
   "stress_probabilities": {
-    "normal_prob": 0.007525401655584574,
-    "mild_stress_prob": 0.15669071674346924,
-    "severe_drought_prob": 0.835783839225769
+    "normal_prob": 0.032414283608920735,
+    "mild_stress_prob": 0.2260518711805275,
+    "severe_drought_prob": 0.7415338452105517
   },
   "forecasted_yield_kg_per_da": 507.2,
   "location": "Gaziantep / Şehitkamil Tarım Bölgesi",

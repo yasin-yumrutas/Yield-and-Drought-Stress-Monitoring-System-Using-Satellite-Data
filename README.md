@@ -39,17 +39,27 @@ Tarım sektöründe kuraklık ve su stresi yapraklarda sararma veya kuruma gibi 
   <img src="reports/drought_model_comparison.png" alt="Model Comparison Benchmark" width="90%"/>
 </p>
 
-#### 📉 2. 14-Günlük Kuraklık Stresi Karmaşıklık Matrisi (Confusion Matrix)
+#### 📉 2. Yapay Zeka Model Eğitim Kayıp Eğrisi (Training & Validation Loss Curve)
+<p align="center">
+  <img src="reports/training_loss_curves.png" alt="Training & Validation Loss Curve" width="85%"/>
+</p>
+
+#### 📈 3. 14-Günlük Kuraklık Stresi YZ Modeli ROC-AUC Eğrileri
+<p align="center">
+  <img src="reports/drought_roc_curves.png" alt="ROC-AUC Curves" width="85%"/>
+</p>
+
+#### 📊 4. 14-Günlük Kuraklık Stresi Karmaşıklık Matrisi (Confusion Matrix)
 <p align="center">
   <img src="reports/drought_confusion_matrix.png" alt="Confusion Matrix" width="70%"/>
 </p>
 
-#### 🌾 3. Sezon Sonu Rekolte Tahmin Modeli (Gerçek vs Tahmin Değerleri - R² = 0.944)
+#### 🌾 5. Sezon Sonu Rekolte Tahmin Modeli (Gerçek vs Tahmin Değerleri - R² = 0.944)
 <p align="center">
   <img src="reports/yield_actual_vs_predicted.png" alt="Yield Actual vs Predicted" width="70%"/>
 </p>
 
-#### 🧠 4. Açıklanabilir Yapay Zeka (SHAP XAI) Karar Nedenleri
+#### 🧠 6. Açıklanabilir Yapay Zeka (SHAP XAI) Karar Nedenleri
 <p align="center">
   <img src="reports/shap_yield_explanation.png" alt="SHAP Explainable AI" width="85%"/>
 </p>
@@ -202,14 +212,16 @@ cd Yield-and-Drought-Stress-Monitoring-System-Using-Satellite-Data
 pip install -r requirements.txt
 ```
 
-### 3. Yapay Zeka Modellerini Eğitin ve Rapor Grafiklerini Üretin
+### 3. Yerel Masaüstü YZ Paneli Arayüzünü Başlatma (MATLAB Stili Canlı Akış)
 ```bash
-python train.py
+python main.py --gui
+# veya alternatif olarak:
+python desktop_gui.py
 ```
 
-### 4. Canlı Gaziantep Saha Testini Çalıştırın
+### 4. Yapay Zeka Modellerini Eğitin ve Rapor Grafiklerini Üretin
 ```bash
-python src/data/gaziantep_real_test.py
+python train.py
 ```
 
 ### 5. Canlı REST API Sunucusunu Başlatın

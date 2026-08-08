@@ -46,7 +46,10 @@ def run_demo():
     print("\nInference complete! JSON report exported to 'reports/sample_inference_report.json'")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--train":
+    if len(sys.argv) > 1 and (sys.argv[1] == "--gui" or sys.argv[1] == "-g"):
+        from desktop_gui import main as launch_desktop_gui
+        launch_desktop_gui()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--train":
         run_pipeline()
     else:
         # Default: Train if needed, then run demo inference

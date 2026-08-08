@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi (Gaziantep Canlı Harita)</title>
+    <title>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi (Canlı YZ Paneli)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Leaflet.js Interactive Map CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- Chart.js -->
+    <!-- Chart.js for Dynamic Real-Time Interactive Canvas Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <link rel="stylesheet" href="style.css">
+    <style>
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border-color: var(--accent-blue);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .reports-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .report-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .report-card canvas {
+            max-height: 280px;
+            width: 100% !important;
+            margin-top: 0.75rem;
+        }
+        .report-card h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+    </style>
 </head>
 <body>
 
@@ -21,8 +71,8 @@
         <div class="logo-area">
             <div class="logo-icon">AGY</div>
             <div class="title-group">
-                <h1>Uydu Verileri ile Rekolte & Kuraklık Stresi Takip Sistemi</h1>
-                <p>Gaziantep Canlı Lokasyon Seçimli Harita (ERA5 Meteoroloji & Sentinel-2 Yapay Zekası)</p>
+                <h1>Uydu Verileri ile Rekolte & Kuraklık Stresi Takip Sistemi (Canlı YZ Paneli)</h1>
+                <p>Gaziantep Canlı Lokasyon Seçimli Harita (ERA5 Meteoroloji, Sentinel-2 & Sentinel-1 SAR)</p>
             </div>
         </div>
         <div class="badge-tubitak">TÜBİTAK 2209-A / 2242 Ar-Ge Projesi</div>
@@ -60,7 +110,7 @@
                         <div class="stat-value" style="color: var(--accent-orange)">14 Gün</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Canlı API Durumu</div>
+                        <div class="stat-label">Sentinel-1 Radar</div>
                         <div class="stat-value" style="color: var(--accent-green)">Aktif</div>
                     </div>
                 </div>
@@ -68,32 +118,75 @@
         </div>
 
         <div class="content-area">
-            <div class="prediction-banner" id="predictionBanner">
-                <div class="prediction-info">
-                    <h3 id="fieldTitle">Gaziantep / Araban Ovası - Yapay Zeka Tahmini</h3>
-                    <p id="fieldStatus">14-Günlük Tahmin: <strong id="statusText">Şiddetli Kuraklık Stresi</strong></p>
-                    <small id="coordText" style="color: var(--text-secondary)">Koordinat: 37.4300, 37.6800 | Toplam Yağış: 361.6 mm</small>
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-live', this)">🗺️ Canlı Harita & Zaman Serisi</button>
+                <button class="tab-btn" onclick="switchTab('tab-reports', this)">📈 Canlı 100-Epoch & ROC Grafikleri (Interactive)</button>
+            </div>
+
+            <!-- Tab 1: Live Map & Time-Series -->
+            <div id="tab-live" class="tab-content active">
+                <div class="prediction-banner" id="predictionBanner">
+                    <div class="prediction-info">
+                        <h3 id="fieldTitle">Gaziantep / Araban Ovası - Yapay Zeka Tahmini</h3>
+                        <p id="fieldStatus">14-Günlük Tahmin: <strong id="statusText">Şiddetli Kuraklık Stresi</strong></p>
+                        <small id="coordText" style="color: var(--text-secondary)">Koordinat: 37.4300, 37.6800 | Toplam Yağış: 361.6 mm</small>
+                    </div>
+                    <div class="yield-pill" id="yieldText">
+                        Tahmini Rekolte: 507.2 kg/dönüm
+                    </div>
                 </div>
-                <div class="yield-pill" id="yieldText">
-                    Tahmini Rekolte: 507.2 kg/dönüm
+
+                <div class="card" style="margin-top: 1rem;">
+                    <div class="card-header">
+                        <span>Gaziantep Seçili Bölge Canlı İklim & Sentinel-2 Zaman Serisi (120 Gün)</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="tsChart"></canvas>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <span>Gaziantep Seçili Bölge Canlı İklim & Sentinel-2 Zaman Serisi (120 Gün)</span>
-                </div>
-                <div class="chart-container">
-                    <canvas id="tsChart"></canvas>
+            <!-- Tab 2: DYNAMIC REAL-TIME INTERACTIVE CANVAS CHARTS (MATLAB / TENSORBOARD STYLE) -->
+            <div id="tab-reports" class="tab-content">
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h4>📉 100-Epoch Canlı Model Kayıp Eğrisi (Train vs Val Loss)</h4>
+                        <canvas id="guiLossChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h4>📈 Multi-Class ROC-AUC Eğrileri (Interactive Curves)</h4>
+                        <canvas id="guiRocChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h4>📊 6-Farklı YZ Mimarisi Başarım Kıyaslaması (F1 %)</h4>
+                        <canvas id="guiBenchmarkChart"></canvas>
+                    </div>
+                    <div class="report-card">
+                        <h4>🌾 Sezon Sonu Rekolte Tahmin Doğruluğu (Gerçek vs Tahmin)</h4>
+                        <canvas id="guiYieldChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi - Gaziantep Harita Seçimli Canlı YZ Paneli</p>
+        <p>Uydu Verileri ile Rekolte ve Kuraklık Stresi Takip Sistemi - Canlı İnteraktif YZ Paneli</p>
     </footer>
 
     <script src="app.js"></script>
+    <script>
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+            
+            if (tabId === 'tab-reports' && window.renderDynamicCharts) {
+                window.renderDynamicCharts();
+            }
+        }
+    </script>
 </body>
 </html>

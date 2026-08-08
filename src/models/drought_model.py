@@ -6,6 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score, f1_score
+from sklearn.calibration import CalibratedClassifierCV
 from xgboost import XGBClassifier
 import joblib
 
@@ -188,25 +189,28 @@ def train_drought_xgboost(train_df, val_df):
     X_train, y_train, feature_cols = prepare_xgboost_features(train_df)
     X_val, y_val, _ = prepare_xgboost_features(val_df)
     
-    xgb_model = XGBClassifier(
+    base_xgb = XGBClassifier(
         n_estimators=150,
-        max_depth=6,
-        learning_rate=0.05,
+        max_depth=5,
+        learning_rate=0.04,
         subsample=0.8,
         colsample_bytree=0.8,
         random_state=42,
         eval_metric='mlogloss'
     )
     
-    xgb_model.fit(X_train, y_train)
-    val_preds = xgb_model.predict(X_val)
+    # Calibrate Probabilities using 5-Fold Cross-Validation Platt Scaling
+    calibrated_model = CalibratedClassifierCV(estimator=base_xgb, method='sigmoid', cv=5)
+    calibrated_model.fit(X_train, y_train)
+    
+    val_preds = calibrated_model.predict(X_val)
     
     macro_f1 = f1_score(y_val, val_preds, average='macro')
-    print(f"XGBoost Training Complete! Validation Macro F1: {macro_f1:.4f}")
-    print("\nClassification Report (XGBoost):")
+    print(f"Calibrated XGBoost Training Complete! Validation Macro F1: {macro_f1:.4f}")
+    print("\nClassification Report (Calibrated XGBoost):")
     print(classification_report(y_val, val_preds, target_names=['Normal', 'Orta Stres', 'Şiddetli Kuraklık']))
     
     os.makedirs('models', exist_ok=True)
-    joblib.dump(xgb_model, 'models/drought_xgboost.joblib')
+    joblib.dump(calibrated_model, 'models/drought_xgboost.joblib')
     
-    return xgb_model, macro_f1
+    return calibrated_model, macro_f1
